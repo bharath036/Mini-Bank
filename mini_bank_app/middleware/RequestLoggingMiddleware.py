@@ -11,9 +11,9 @@ class RequestLogging:
             request_type = request_info.method ,
             request_method = request_info.path 
         )
-        print(self.get_response(request))
+        #print(self.get_response(request))
         #print(request_info)
         #print('request_tyoe',request_info.method)
         #print('request_method',request_info.path)
-        print("request_info:",vars(request_info))
+        #print("request_info:",vars(request_info))
         return self.get_response(request)

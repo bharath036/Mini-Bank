@@ -13,9 +13,11 @@
 
     <div class="container">
         <h1 class="text-center mt-4">🏦 Mini Bank</h1>
-
+        <div class="d-flex justify-content-end mt-4">
+        <a  class="btn" style="background-color: brown;width: 80px;" href="{% url 'logout_view' %}" >Logout</a>
+    </div>
         <!-- Available Balance Section -->
-        <div class="balance-box">
+        <div class="balance-box mt-4">
             <h2>Available Balance</h2>
             <p id="total-balance">&#8377;{{ current_balance }}</p>
         </div>

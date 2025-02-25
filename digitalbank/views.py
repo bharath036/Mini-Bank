@@ -1,7 +1,52 @@
 from django.shortcuts import render,redirect 
 from .models import AddTransaction,CurrentBalance
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages 
 
 # Create your views here.
+def login_view(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username = username, password=password)
+        if user is None:
+            messages.success(request,'Invali user or password incorrect')
+            return redirect('login_view')
+        
+        login(request,user)
+        return redirect('index')
+    
+    return render(request,'login.html')
+
+def register_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+
+        user = User.objects.filter(username=username)
+        if user.exists():
+            messages.success(request,'Username already taken')
+            return redirect('register_view')
+        
+        user = User.objects.create(
+            username=username,
+            password = password,
+            first_name = first_name,
+            last_name = last_name
+        )
+        user.set_password(password)
+        user.save()
+        messages.success(request,'Account created')
+        return redirect('login_view')
+    return render(request,'register.html')
+
+def logout_view(request):
+    logout(request)
+    return redirect('login_view')
 '''
 def index(request):
     print("inside index.html")
@@ -24,7 +69,7 @@ def index(request):
     return render(request,"index.html")
 '''
 
-
+@login_required(login_url="login_view")
 def index(request):
     #print("inside index.html")
     if request.method == "POST":

@@ -26,17 +26,17 @@ def index(request):
 
 
 def index(request):
-    print("inside index.html")
+    #print("inside index.html")
     if request.method == "POST":
         username = request.POST.get('username')
-        print(username)
+        #print(username)
         select_type = 'Credit'
         current_balance,_ = CurrentBalance.objects.get_or_create(id=1)
         enter_amount = request.POST.get('amount')
         if float(enter_amount)< 0:
             select_type = 'Debit'
-        print(enter_amount)
-        print(request.method)
+       # print(enter_amount)
+       # print(request.method)
         transaction_history = AddTransaction.objects.create(
             username = username,
             enter_amount = enter_amount,
@@ -45,10 +45,10 @@ def index(request):
         )
         current_balance.current_balance += float(transaction_history.enter_amount)
         current_balance.save()
-        print(current_balance.current_balance)
+       # print(current_balance.current_balance)
         return redirect('/')
     current_balance,_ = CurrentBalance.objects.get_or_create(id=1)
-    print(current_balance.current_balance)
+    #print(current_balance.current_balance)
     Credit = 0
     Debit = 0 
 

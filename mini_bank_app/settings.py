@@ -49,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'mini_bank_app.middleware.RequestLoggingMiddleware.RequestLogging'
 ]
 
 ROOT_URLCONF = 'mini_bank_app.urls'
